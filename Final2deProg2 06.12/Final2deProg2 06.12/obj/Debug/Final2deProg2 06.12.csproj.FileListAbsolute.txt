@@ -1,0 +1,12 @@
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\bin\Debug\Final2deProg2 06.12.exe.config
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\bin\Debug\Final2deProg2 06.12.exe
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\bin\Debug\Final2deProg2 06.12.pdb
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2 06.12.csproj.AssemblyReference.cache
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2_06._12.Form1.resources
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2_06._12.FormDePagos.resources
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2_06._12.Properties.Resources.resources
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2_06._12.ResumenPedido.resources
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2 06.12.csproj.GenerateResource.cache
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2 06.12.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2 06.12.exe
+C:\Users\Usuario\source\repos\PracticaParaFinalProg2\Final2deProg2 06.12\Final2deProg2 06.12\obj\Debug\Final2deProg2 06.12.pdb

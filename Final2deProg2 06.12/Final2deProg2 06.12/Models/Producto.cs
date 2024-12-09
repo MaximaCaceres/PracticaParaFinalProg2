@@ -13,7 +13,7 @@ namespace Final2deProg2_06._12.Models
         protected double precioBA = 100;
         public double CantidadKg {  get; set; }
         #region metodos
-        public double Precio(double kgs)
+        public virtual double Precio(double kgs)
         {
             CantidadKg = kgs;
             double c = precioBA * kgs;
@@ -21,7 +21,10 @@ namespace Final2deProg2_06._12.Models
         }
         public string Descripcion()
         {
-            string dat = $"{descr};{precioBA};{CantidadKg};{Precio(CantidadKg)}";
+            string dat = $@"Producto   Peso    PrecioU   Precio
+                           {descr}    {CantidadKg:f2}   {precioBA:f2}   {Precio(CantidadKg):f2}
+                          
+                           Total: {precioBA + Precio(CantidadKg):f2}";
             return dat;
         }
         #endregion

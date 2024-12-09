@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Final2deProg2_06._12.Models
 {
-    
-    public interface IExportable
+    public interface IImportable
     {
-        string Escribir();
+        void Leer(string n);
     }
 }

@@ -11,8 +11,8 @@ namespace Final2deProg2_06._12.Models
     [Serializable]
     public class GestionVentas
     {
-        ArrayList listaClientes = new ArrayList();
-        List<Producto> listaProductos = new List<Producto>();
+        public List<ClienteCuenta>listaClientes = new List<ClienteCuenta>();
+        public List<Producto> listaProductos = new List<Producto>();
         private Empresa duenio = null;
         private double montoFacturado = 0;
         private DateTime InicioOperaciones
@@ -37,7 +37,14 @@ namespace Final2deProg2_06._12.Models
             ClienteCuenta cu = new ClienteCuenta(null, cui, 0);
             listaClientes.Sort();
             int idx = listaClientes.BinarySearch(cu);
-            c = listaClientes[idx] as ClienteCuenta;
+            if(idx <= -1)
+            {
+                c = null;
+            }
+            else
+            {
+                c = listaClientes[idx];
+            }
             return c;
         }
         public Pedido GenerarPedido(int nroP, List<Producto> list)

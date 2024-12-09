@@ -8,6 +8,17 @@ namespace Final2deProg2_06._12.Models
 {
     public class ErrorCargaException:ApplicationException
     {
+       public ErrorCargaException() : base("error, usted excedio su saldo!")
+        {
 
+        }
+        public ErrorCargaException(string msj) : base(msj)
+        {
+
+        }
+        public ErrorCargaException(string msj, Exception ex):base(msj, ex)
+        {
+
+        }
     }
 }

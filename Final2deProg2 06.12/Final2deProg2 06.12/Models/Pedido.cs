@@ -30,10 +30,10 @@ namespace Final2deProg2_06._12.Models
         }
         public string VerResumen()
         {
-            string date = $@"Nro Pedido: {Nro}
-                           Fecha y Hora: {FechaHora}
-                           Valor: {Valor:f2}
-                           Detalle: {Detalle}";
+            string date = $@"{$"Nro Pedido: {Nro}",10}
+{$"Fecha y Hora: {FechaHora}",10}
+{$"Valor: {Valor:f2}",10}
+{$"Detalle: {Detalle}",10}";
             return date;
         }
 

@@ -52,19 +52,35 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDePagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDePagos.Designer.cs">
+      <DependentUpon>FormDePagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Clasico.cs" />
     <Compile Include="Models\ClienteCuenta.cs" />
     <Compile Include="Models\Empresa.cs" />
     <Compile Include="Models\ErrorCargaException.cs" />
     <Compile Include="Models\GestionVentas.cs" />
     <Compile Include="Models\IExportable.cs" />
+    <Compile Include="Models\IImportable.cs" />
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\Premiun.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResumenPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResumenPedido.Designer.cs">
+      <DependentUpon>ResumenPedido.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDePagos.resx">
+      <DependentUpon>FormDePagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -75,6 +91,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ResumenPedido.resx">
+      <DependentUpon>ResumenPedido.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -87,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UML\finalPUltimo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
