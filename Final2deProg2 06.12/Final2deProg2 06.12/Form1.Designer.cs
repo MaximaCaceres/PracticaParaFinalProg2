@@ -96,7 +96,7 @@
             this.tbxLista.Location = new System.Drawing.Point(224, 43);
             this.tbxLista.Multiline = true;
             this.tbxLista.Name = "tbxLista";
-            this.tbxLista.Size = new System.Drawing.Size(185, 147);
+            this.tbxLista.Size = new System.Drawing.Size(184, 147);
             this.tbxLista.TabIndex = 8;
             // 
             // btnAgregarP

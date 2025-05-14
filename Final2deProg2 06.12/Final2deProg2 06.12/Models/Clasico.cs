@@ -23,7 +23,7 @@ namespace Final2deProg2_06._12.Models
             string[] dat = n.Split(';');
             descr = dat[0];
             precioBA = Convert.ToDouble(dat[1]);
-            //Descripcion; precioA; precioB; tipo
+            //Descripcion; precioA; tipo
         }
 
         public override double Precio(double kg)

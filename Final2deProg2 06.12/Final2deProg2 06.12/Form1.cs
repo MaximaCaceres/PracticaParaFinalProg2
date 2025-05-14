@@ -1,14 +1,7 @@
 ﻿using Final2deProg2_06._12.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Final2deProg2_06._12
@@ -18,13 +11,14 @@ namespace Final2deProg2_06._12
         public Form1()
         {
             InitializeComponent();
+            CargarDatos();
         }
         GestionVentas gestion = new GestionVentas(56347548769, "Bananirou.Club");
         ClienteCuenta c = new ClienteCuenta();
         string path = Application.StartupPath + "gestion.dat";
         //que disponga de los datos de una empresa, 2 productos tipo Clásico, 2 productos tipo Premiun y una lista de 3 clientes con
         //topes de cuenta de 15000, 30000 y 70000 respectivamente.
-        
+
         long cuitProceso;
         private void btnAgregarSelec_Click(object sender, EventArgs e)
         {
@@ -32,14 +26,14 @@ namespace Final2deProg2_06._12
             cuitProceso = cuit;
             try
             {
-                 ClienteCuenta cli = gestion.BuscarCliente(cuit);
+                ClienteCuenta cli = gestion.BuscarCliente(cuit);
                 if (cli == null)
                 {
                     c = new ClienteCuenta("Persona", cuit, 15000);//creo el cliente.
                     gestion.AgregarCliente(c);//lo agrega la gestion. 
-                    
+
                 }
-                else if(cli==null)
+                else if (cli != null)
                 {
                     MessageBox.Show("El cliente existe!");
                 }
@@ -48,11 +42,11 @@ namespace Final2deProg2_06._12
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         private void btnVerSaldo_Click(object sender, EventArgs e)
-        { 
+        {
             double tot = gestion.VerSaldo(cuitProceso);
             tbxLista.Text += $"Saldo de cuenta: {tot:f2}\n";
         }
@@ -83,33 +77,36 @@ namespace Final2deProg2_06._12
             double kg = Convert.ToDouble(tbxkg.Text);
             switch (prod)
             {
-                case 0: {
-                        producto = "Cat";}
+                case 0:
+                    {
+                        producto = "Cat";
+                    }
                     break;
                 case 1:
-                    { producto = "BullDog";}
+                    { producto = "BullDog"; }
                     break;
                 case 2:
-                    { producto = "Purina";}
+                    { producto = "Purina"; }
                     break;
             }
-            Producto p = new Clasico(2,"Clasico");//porque Producto es abstract.********************
+            Producto p = new Clasico(2, "Clasico");//porque Producto es abstract.********************
             gestion.listaProductos.Add(p);
             p.Precio(kg);
             MessageBox.Show($"{producto} {kg:f2}kg fue seleccionado");
+            tbxLista.AppendText(producto);//aca imprimo lo que cargo.
 
         }
         int i = 1;
         private void btnAgregarP_Click(object sender, EventArgs e)
         {
             Pedido p = null;
-            ClienteCuenta client = new ClienteCuenta();
+            ClienteCuenta client = new ClienteCuenta();//porque tiene que quedar afuera del try.
 
             try
             {
-                    p = new Pedido(i++, gestion.listaProductos);//el primero es el numero de pedido.*************
-                    c.AgregarPedido(p);
-  
+                p = new Pedido(i++, gestion.listaProductos);//el primero es el numero de pedido.*************
+                c.AgregarPedido(p);//cada pedido puede tener uno o mas productos, por eso le paso una lista de prod.
+
                 if (client.SaldoCuenta <= client.Tope)
                 {
                     ///////Cliente////////
@@ -122,7 +119,7 @@ namespace Final2deProg2_06._12
                     /////////Producto/////////
                     string r = p.VerResumen();
                     //////Final//////
-                    ResumenPedido Rp = new ResumenPedido();
+                    ResumenPedido Rp = new ResumenPedido();//esta es una ventana modal
                     Rp.tbxResumen.Text += $"{datePClient}{Environment.NewLine}{r}";
                     Rp.ShowDialog();//porque muestro nada mas.****************************
                 }
@@ -130,38 +127,44 @@ namespace Final2deProg2_06._12
                 {
                     throw new ErrorCargaException();
                 }
-                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-            
 
-        private void btnIm_Click(object sender, EventArgs e)
+
+        private void btnIm_Click(object sender, EventArgs e)//cargo un archivo de afuera.
         {
-            OpenFileDialog Im = new OpenFileDialog();
-            Im.Filter = "ficheros csb|*.csv";
+            OpenFileDialog Im = new OpenFileDialog();//open porque abro uno de afuera.
+            Im.Filter = "ficheros csv|*.csv";
             if (Im.ShowDialog() == DialogResult.OK)
             {
-                string path = Im.FileName;
-                FileStream fs = null;
+                string path = Im.FileName;//saco el path.
+
+                FileStream fs = null;//{
                 StreamReader sr = null;
-                Producto p;
+                Producto p;//} a estos los creo afuera del bloque try.
+
                 try
                 {
-                    fs = new FileStream(path,FileMode.OpenOrCreate,FileAccess.Read);
-                    sr = new StreamReader(fs);
-                    string linea = sr.ReadLine();
-                    while(sr.EndOfStream == false)
+                    fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);//abro un flujo de datos.
+                    sr = new StreamReader(fs);//es de tipo lectura porque leo algo de afuera para cargar.
+                    //Le paso a la herramienta de "lectura".
+
+                    string linea = sr.ReadLine();// leo  la primera antes porque es el titulo.
+
+                    while (sr.EndOfStream == false)//mientras la herramienta de lectura no este en el final...
                     {
-                        linea = sr.ReadLine();
-                        string[] dat = linea.Split(';');
-                        if (dat[3] == "P")//*****************************
+                        linea = sr.ReadLine();//leo la linea correspondiente.
+                        string[] dat = linea.Split(';'); 
+                        //Ejemplo://cantidad;nombre;precio;tipo
+                        if (dat[3] == "P")//***************************** porque tenemos que ver si es C o P.
                         {
-                            p = new Premiun();
-                            Premiun pr = p as Premiun;
+                            p = new Premiun();//creo un P
+                            Premiun pr = p as Premiun;//casteo para asegurar.
                             pr.Leer(linea);
                             tbxLista.Text = pr.ToString();
                         }
@@ -174,34 +177,35 @@ namespace Final2deProg2_06._12
                         }
                     }
                 }
-                catch(ErrorCargaException ex)
+                catch (ErrorCargaException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
                 finally
                 {
                     if (sr != null) sr.Close();
-                    if(fs!=null) fs.Close();
+                    if (fs != null) fs.Close();
                 }
             }
         }
 
         private void btnExClientes_Click(object sender, EventArgs e)
         {
-            SaveFileDialog Ex = new SaveFileDialog();
+            SaveFileDialog Ex = new SaveFileDialog();//exportando, guardando.
             Ex.Filter = "ficheros csv |*.csv";
-            if (Ex.ShowDialog()==DialogResult.OK)
+            if (Ex.ShowDialog() == DialogResult.OK)
             {
                 string path = Ex.FileName;
                 FileStream fs = null;
-                StreamWriter sw = null;
+                StreamWriter sw = null;//cambia la herramienta. ahora es de escritura.
                 ClienteCuenta c = null;
                 try
                 {
-                    fs = new FileStream(path,FileMode.OpenOrCreate,FileAccess.Write);
+                    fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);//le digo que va a escribir.
                     sw = new StreamWriter(fs);
-                    sw.WriteLine();
-                    for(int i = 0; i < gestion.listaClientes.Count; i++)
+                    sw.WriteLine();//agrego titulo segun lo pedido del profe.
+
+                    for (int i = 0; i < gestion.listaClientes.Count; i++)
                     {
                         c = gestion.listaClientes[i];//tomo a cada cliente
                         string s = c.Escribir();
@@ -210,14 +214,19 @@ namespace Final2deProg2_06._12
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show (ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    if (sw != null) sw.Close(); 
+                    if (fs != null) fs.Close();
                 }
             }
         }
 
         private void btnExPedidos_Click(object sender, EventArgs e)
         {
-            SaveFileDialog Ex = new SaveFileDialog();
+            SaveFileDialog Ex = new SaveFileDialog();//como guardo algo, entonces "Save".
             Ex.Filter = "ficheros csv |*.csv";
             if (Ex.ShowDialog() == DialogResult.OK)
             {
@@ -225,7 +234,7 @@ namespace Final2deProg2_06._12
                 FileStream fs = null;
                 StreamWriter sw = null;
                 Pedido p = null;
-                ClienteCuenta c = null;
+                ClienteCuenta c = null;//cada client tiene una lista de pedidos.
                 try
                 {
                     fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
@@ -257,22 +266,30 @@ namespace Final2deProg2_06._12
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+           
+        }
+        public void CargarDatos()
+        {
+
             FileStream fs = null;
             BinaryFormatter bf = null;
             try
             {
                 if (File.Exists(path))
                 {
-                  fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                  bf = new BinaryFormatter();
-                  gestion = bf.Deserialize(fs) as GestionVentas;
+                    fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    bf = new BinaryFormatter();
+                    gestion = bf.Deserialize(fs) as GestionVentas;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
+            finally
+            {
+                if (fs != null) fs.Close();
+            }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -288,11 +305,14 @@ namespace Final2deProg2_06._12
                 bf = new BinaryFormatter();
                 bf.Serialize(fs, gestion);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            
+            finally
+            {
+                if (fs != null) fs.Close();
+            }
         }
     }
 }

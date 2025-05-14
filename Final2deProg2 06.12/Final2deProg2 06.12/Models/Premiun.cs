@@ -20,7 +20,7 @@ namespace Final2deProg2_06._12.Models
         {
 
         }
-        public void Leer(string n)
+        public void Leer(string n)//recibe la linea.
         {
             string[] dat = n.Split(';');
             descr = dat[0];
